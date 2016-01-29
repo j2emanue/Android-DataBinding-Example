@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- This is the databinding declaration section.
+    Here we declare a name for our binding so that we can refer to it in
+     java class-->
+    <data class="CountdownBinder">
+        <!--  Now this is kind of like importing a class. Here we import our
+        ViewModel class and we name it viewModel (or whatever you like)-->
+        <variable name="viewModel" type="com.databindingexample.mycompany.databindingexample.ViewModels.ViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.databindingexample.mycompany.databindingexample.MainActivity"
+        tools:showIn="@layout/activity_main">
+
+        <!-- Here is the textview we will use to listen for countdown changes that
+        are prime #'s. We have to convert it to a string because the method returns
+        a long
+        -->
+        <TextView
+            android:id="@+id/tv_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="26dp"
+            app:primeColor='@{"pink"}'
+            android:text="@{Long.toString(viewModel.getCountDownTime)}" />
+    </RelativeLayout>
+
+</layout>
