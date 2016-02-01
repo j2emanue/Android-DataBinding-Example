@@ -33,8 +33,18 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textSize="26dp"
-            app:primeColor='@{"pink"}'
+            app:primeColor='@{"green"}'
             android:text="@{Long.toString(viewModel.getCountDownTime)}" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textSize="26dp"
+            android:enabled='@{viewModel.canRestart ? true:false}'
+            android:text="@{viewModel.canRestart ? `restart timer`:`unable to restart`}" />
+
     </RelativeLayout>
 
 </layout>

@@ -4,6 +4,7 @@ package com.databindingexample.mycompany.databindingexample.ViewModels;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableBoolean;
 import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
@@ -14,15 +15,21 @@ import com.databindingexample.mycompany.databindingexample.MyCountDownTimer;
 
 //notice we are subclassing BaseObservable
 public class ViewModel extends BaseObservable implements ICountDownListener{
+    private static final Long RESTART_THRESHOLD = 191L;
 
     private static ViewModel instance;
     private long countDownTime;
+
+    public ObservableBoolean canRestart;
+
     private MyCountDownTimer mCountDownTimer;
     private final String TAG = getClass().getSimpleName();
+
 
     //lock the constructor as this is a singleton
     private ViewModel(){
         mCountDownTimer=new MyCountDownTimer(this);
+        canRestart=new ObservableBoolean(false);
 
     }
 
@@ -69,6 +76,15 @@ public class ViewModel extends BaseObservable implements ICountDownListener{
 
     @Override
     public void doSomethingWithPrimeCountDown(Long count) {
+
+        checkIfCanRestart(count);
         setCountDownTime(count);
+    }
+
+    private void checkIfCanRestart(Long count) {
+        if(count > RESTART_THRESHOLD)
+            canRestart.set(true);
+        else
+            canRestart.set(false);
     }
 }
